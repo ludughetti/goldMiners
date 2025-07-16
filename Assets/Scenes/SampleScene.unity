@@ -628,7 +628,7 @@ MonoBehaviour:
     upperRightLimit: {fileID: 289463625}
     nodesSeparation: 1
     clearanceRadius: 1
-    raycastHeight: 3
+    raycastHeight: 2
     walkableTag: Walkable
     ignoreLayers:
       serializedVersion: 2
