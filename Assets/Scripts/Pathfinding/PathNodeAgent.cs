@@ -20,16 +20,17 @@ namespace Pathfinding
             {
                 _destination = value;
 
-                if (_destination != null)
-                {
-                    _currentPath = PathfindingManager.Instance.CreatePath(transform.position, _destination.Value);
-                    _targetNode = _currentPath.Pop();
-                    HasReachedDestination = false;
-                }
+                if (_destination == null) 
+                    return;
+                
+                _currentPath = PathfindingManager.Instance.CreatePath(transform.position, _destination.Value);
+                _targetNode = _currentPath.Pop();
+                HasReachedDestination = false;
             }
         }
-
-
+        
+        public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
+        
         private void Update()
         {
             if (Destination == null || HasReachedDestination)
