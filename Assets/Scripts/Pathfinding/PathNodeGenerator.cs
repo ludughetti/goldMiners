@@ -7,12 +7,19 @@ namespace Pathfinding
     [Serializable]
     public class PathGenerator
     {
+        [Serializable]
+        private struct TerrainLayer
+        {
+            public string tag;
+            public float costMultiplier;
+        }
+        
         [SerializeField] private Transform lowerLeftLimit;
         [SerializeField] private Transform upperRightLimit;
         [SerializeField, Range(0.1f, 10f)] private float nodesSeparation;
         [SerializeField, Range(0.1f, 1f)] private float clearanceRadius = 0.5f;
         [SerializeField, Range(0.1f, 10f)] private float raycastHeight = 3;
-        [SerializeField] private string walkableTag;
+        [SerializeField] private TerrainLayer[] terrainLayers;
         [SerializeField] private LayerMask ignoreLayers;
         
         private bool AreNodesAdjacent(PathNode first, PathNode second, float maxSqrDistance)
@@ -48,21 +55,25 @@ namespace Pathfinding
                 for (var z = startZ; z <= endZ; z += nodesSeparation)
                 {
                     var rayOrigin = new Vector3(x, raycastHeight, z);
-                    if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hitInfo, raycastHeight, ~ignoreLayers))
+                    if (!Physics.Raycast(rayOrigin, Vector3.down, out var hitInfo, raycastHeight, ~ignoreLayers))
+                        continue;
+                    
+                    foreach (var terrainLayer in terrainLayers)
                     {
-                        if (hitInfo.collider.CompareTag(walkableTag))
+                        // Terrain check
+                        if (!hitInfo.collider.CompareTag(terrainLayer.tag)) 
+                            continue;
+                        
+                        // Depth check: ensures there's enough clearance for the agent
+                        if (Physics.CheckSphere(rayOrigin, clearanceRadius, ~ignoreLayers)) 
+                            continue;
+                            
+                        var pathNode = new PathNode()
                         {
-                            // Depth check: ensures there's enough clearance for the agent
-                            if (!Physics.CheckSphere(rayOrigin, clearanceRadius, ~ignoreLayers))
-                            {
-                                PathNode pathNode = new PathNode()
-                                {
-                                    Position = hitInfo.point
-                                };
+                            Position = hitInfo.point
+                        };
 
-                                nodes.Add(pathNode);
-                            }
-                        }
+                        nodes.Add(pathNode);
                     }
                 }
             }

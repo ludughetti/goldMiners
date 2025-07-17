@@ -629,11 +629,15 @@ MonoBehaviour:
     nodesSeparation: 1
     clearanceRadius: 1
     raycastHeight: 2
-    walkableTag: Walkable
+    terrainLayers:
+    - tag: Grass
+      costMultiplier: 1
+    - tag: Mud
+      costMultiplier: 5
     ignoreLayers:
       serializedVersion: 2
       m_Bits: 8
-  pathfindingStrategy: 0
+  pathfindingStrategy: 3
 --- !u!1 &815165660
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +652,7 @@ GameObject:
   - component: {fileID: 815165662}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Walkable
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
