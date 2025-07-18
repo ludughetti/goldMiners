@@ -1,12 +1,14 @@
+using System;
 using Gameplay;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace StateMachine.States
 {
+    [Serializable]
     public class IdleState : FsmState<Miner>
     {
-        private float _scanInterval;
+        [SerializeField] private float scanInterval = 2f;
         private float _scanTimer;
         private Mine[] _cachedMines;
 
@@ -17,8 +19,7 @@ namespace StateMachine.States
 
         public override void Enter()
         {
-            _scanInterval = Owner.GetScanInterval();
-            _scanTimer = _scanInterval;
+            _scanTimer = scanInterval;
         }
 
         public override void Update()
@@ -28,7 +29,7 @@ namespace StateMachine.States
             if (!(_scanTimer <= 0f)) 
                 return;
             
-            _scanTimer = _scanInterval;
+            _scanTimer = scanInterval;
 
             // Try to find a nearby, unoccupied mine
             var closestMine = FindAvailableMine();
@@ -73,6 +74,14 @@ namespace StateMachine.States
             }
 
             return closest;
+        }
+        
+        public void AssignMine(Mine mine)
+        {
+            if (Owner.CurrentMine == mine) 
+                return;
+            
+            Owner.AssignMine(mine);
         }
     }
 }

@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871aad7606b28dd4f8d7bf47892357e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
-  rotateSpeed: 45
+  movementSpeed: 3
+  rotateSpeed: 180
 --- !u!114 &2002812666999917215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d07775a481dfc44cb1ffe9bbe756a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miningRate: 1
-  carryingCapacity: 20
-  scanInterval: 2
-  depositTime: 1
+  idleState:
+    scanInterval: 2
+  miningState:
+    miningRate: 5
+    carryingCapacity: 20
+  unloadingState:
+    depositTime: 1

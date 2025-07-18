@@ -1,10 +1,13 @@
+using System;
 using Gameplay;
 using UnityEngine;
 
 namespace StateMachine.States
 {
+    [Serializable]
     public class UnloadingState : FsmState<Miner>
     {
+        [SerializeField] private float depositTime = 1f;
         private float _unloadTimer;
 
         protected override void OnInitialize() { }
@@ -18,7 +21,7 @@ namespace StateMachine.States
                 return;
             }
             
-            _unloadTimer = Owner.GetDepositTime();
+            _unloadTimer = depositTime;
         }
 
         public override void Update()
