@@ -1486,7 +1486,7 @@ MonoBehaviour:
     - tag: Grass
       costMultiplier: 1
     - tag: Mud
-      costMultiplier: 20
+      costMultiplier: 10
     ignoreLayers:
       serializedVersion: 2
       m_Bits: 136

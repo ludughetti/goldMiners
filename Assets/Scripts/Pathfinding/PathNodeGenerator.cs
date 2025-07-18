@@ -70,10 +70,13 @@ namespace Pathfinding
                             
                         var pathNode = new PathNode()
                         {
-                            Position = hitInfo.point
+                            Position = hitInfo.point,
+                            CostMultiplier = terrainLayer.costMultiplier,
+                            AccumulatedCost = 0f
                         };
 
                         nodes.Add(pathNode);
+                        break;
                     }
                 }
             }

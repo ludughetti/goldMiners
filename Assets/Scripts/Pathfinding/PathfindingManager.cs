@@ -156,7 +156,7 @@ namespace Pathfinding
             return openNode;
         }
         
-        private PathNode GetNextOpenNodeAStar (PathNode destinationNode)
+        private PathNode GetNextOpenNodeAStar(PathNode destinationNode)
         {
             var openNode = _openNodes[0];
 
