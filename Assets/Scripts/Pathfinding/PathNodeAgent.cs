@@ -36,14 +36,14 @@ namespace Pathfinding
             if (Destination == null || HasReachedDestination)
                 return;
 
-            Vector3 targetPosition = _targetNode.Position;
-            Vector3 diff = targetPosition - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(diff.normalized, transform.up);
-            float maxDistanceDelta = movementSpeed * Time.deltaTime;
-            float maxDegreesDelta = rotateSpeed * Time.deltaTime;
+            var targetPosition = _targetNode.Position;
+            var diff = targetPosition - transform.position;
+            var targetRotation = Quaternion.LookRotation(diff.normalized, transform.up);
+            var maxDistanceDelta = movementSpeed * Time.deltaTime;
+            var maxDegreesDelta = rotateSpeed * Time.deltaTime;
 
-            Vector3 updatedPosition = Vector3.MoveTowards(transform.position, targetPosition, maxDistanceDelta);
-            Quaternion updatedRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxDegreesDelta);
+            var updatedPosition = Vector3.MoveTowards(transform.position, targetPosition, maxDistanceDelta);
+            var updatedRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxDegreesDelta);
 
             transform.SetPositionAndRotation(updatedPosition, updatedRotation);
 
@@ -62,7 +62,7 @@ namespace Pathfinding
             if (_targetNode == null)
                 return;
 
-            float lineThickness = 5f;
+            var lineThickness = 5f;
             UnityEditor.Handles.color = Color.red;
 
             UnityEditor.Handles.DrawLine(transform.position, _targetNode.Position, lineThickness);
